@@ -1,0 +1,1 @@
+{"version":3,"sources":["text_game/db.cljs"],"mappings":";;AAEA,AAAA,AAAA,AAAA,AAAKA","names":["text-game.db/default-db"],"sourcesContent":["(ns text-game.db)\n\n(def default-db\n  {:name \"re-frame\"})\n"]}

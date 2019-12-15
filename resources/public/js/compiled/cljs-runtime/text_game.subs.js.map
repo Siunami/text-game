@@ -1,0 +1,1 @@
+{"version":3,"sources":["text_game/subs.cljs"],"mappings":";;;AAIA,AAAAA,AAAA;AAAAC,AAEC,AAAKE;AAAL,AACE,AAAA,AAAOA;;AAHV,AAAA,AAAAH,AAAAC,AAAAD,AAAAC,AAACC,AAAAA,AAAAA","names":["G__53209","G__53210","re-frame.core/reg-sub","db"],"sourcesContent":["(ns text-game.subs\n  (:require\n   [re-frame.core :as re-frame]))\n\n(re-frame/reg-sub\n ::name\n (fn [db]\n   (:name db)))\n"]}

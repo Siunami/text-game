@@ -1,0 +1,1 @@
+{"version":3,"sources":["text_game/config.cljs"],"mappings":";;AAEA,AAAKA,AACMC","names":["text-game.config/debug?","js/goog.DEBUG"],"sourcesContent":["(ns text-game.config)\n\n(def debug?\n  ^boolean goog.DEBUG)\n"]}
