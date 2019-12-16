@@ -5,8 +5,13 @@
    [text-game.events :as events]
    [text-game.views :as views]
    [text-game.config :as config]))
+   ;; ["fs" :as fs]))
 
+;; TODO: having trouble getting interop with node.js libraries
 
+; (defn node-slurp [path]
+;   (let [fs (nodejs/require "fs")]
+;     (.readFileSync fs path "utf8")))
 
 (defn dev-setup []
   (when config/debug?

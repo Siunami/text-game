@@ -17,3 +17,8 @@ Wait a bit, then browse to [http://localhost:8280](http://localhost:8280).
 
 ## Production Build
 
+
+## Learning backlog
+
+- Coeffects
+- interop with node.js libraries

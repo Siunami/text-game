@@ -1,0 +1,55 @@
+(defn inc-more [nums]
+  (if (first nums)
+    (cons (inc (first nums))
+          (inc-more (rest nums)))
+    (list)))
+(inc-more [0 1 2])
+:cljs/quit
+quit
+(defn transform-all [f l]
+(if (first l)
+(cons (f (first l)) (transform-all (rest l)))
+(l)))
+(transform-all inc [0 1 2])
+(defn transform-all [f l]
+  (if (first l)
+      (cons (f (first l))
+            (transform-all f (rest l)))
+      (l)))
+(transform-all inc [0 1 2])
+transform-all
+quit
+(defn transform-all [f l]
+  (if (first l)
+      (cons (f (first l))
+            (transform-all f (rest l)))
+      (l)))
+(transform-all inc [0 1 2])
+(transform-all inc (0 1 2))
+(transform-all inc [0 1 2])
+(defn transform-all [f xs]
+  (if (first xs)
+    (cons (f (first xs))
+          (transform-all f (rest xs)))
+    (list)))
+(transform-all inc [0 1 2])
+(defn transform-all [f l]
+  (if (first l)
+      (cons (f (first l))
+            (transform-all f (rest l)))
+      (l)))
+(transform-all inc [0 1 2])
+(defn transform-all [f xs]
+  (if (first xs)
+      (cons (f (first xs))
+            (transform-all f (rest xs)))
+      (xs)))
+(transform-all inc [0 1 2])
+(for [ma matches]
+        (println ma))
+(def matches (<jjkkks::nn/> <beloved::jj/>))
+(list <asdf:ASDf> <Asdf:wer>
+)
+(= () nil)
+(= () ())
+quit

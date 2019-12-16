@@ -18,8 +18,8 @@ text_game.core.mount_root = (function text_game$core$mount_root(){
 return reagent.core.render.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [text_game.views.main_panel], null),document.getElementById("app"));
 });
 text_game.core.init = (function text_game$core$init(){
-var G__53214_53215 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","initialize-db","text-game.events/initialize-db",1311440715)], null);
-(re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1(G__53214_53215) : re_frame.core.dispatch_sync.call(null,G__53214_53215));
+var G__41141_41142 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","initialize-db","text-game.events/initialize-db",1311440715)], null);
+(re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1(G__41141_41142) : re_frame.core.dispatch_sync.call(null,G__41141_41142));
 
 text_game.core.dev_setup();
 

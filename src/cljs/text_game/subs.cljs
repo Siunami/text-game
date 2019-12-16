@@ -6,3 +6,18 @@
  ::name
  (fn [db]
    (:name db)))
+
+(re-frame/reg-sub
+ ::text
+ (fn [db]
+   (:text db)))
+
+(re-frame/reg-sub
+ ::remaining-blanks
+ (fn [db]
+   (:remaining-blanks db)))
+
+(re-frame/reg-sub
+ ::inputs
+ (fn [db]
+   (:inputs db)))

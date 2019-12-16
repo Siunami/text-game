@@ -1,0 +1,73 @@
+Author: Nabil Hossain
+
+Documentation of the Fun Libs dataset.
+
+Number of titles in the training set = 30
+Number of titles in the validation set = 10
+Number of titles in the test set = 10
+
+The file names are described below:
+
+train = training dataset
+validation = validation dataset
+test-FT = results on test dataset with humans filling in the blanks without any choices provided
+test-LMC = results on test dataset with Language Model only
+test-LIBITUM = results on test dataset with LIBITUM
+
+
+Each top-level JSON entry has the title of a Fun Lib as the key, and the entry has M "set" fields, where M is the total number of filled-in stories with the title. Each "setX" (where X is an integer and X belongs to {0,1,…, M-1}) field has the filled-in words and grade data for a particular filled-in story, described as follows:
+
+
+Example of 1 JSON entry structure:
+
+{
+    "Little Red Riding Hood": {
+        "text": 
+        
+        "set0": {
+            "wordFunninessGrades": [ ]
+            "storyFunninessGrades": 
+            "filledIn": [ ]
+        },
+	.
+	.
+	.
+        "setX": {},
+    }
+}
+
+
+
+— The "text" field contains the whole story. In this field, sentences are separated with the tag ‘\n’, and the original WORD and HINT for each blank is provided in the format: <WORD::HINT/>
+
+The following are the hint types and their descriptions:
+
+HINT TYPE	DESC
+—————————	————
+animal: 	name of an animal
+animal_plural: 	plural of an animal
+body: 		name of a part of the human body
+body_plural: 	plural of a part of the human body
+food: 		type of food
+food_plural: 	plural of a type of food
+jj: 		adjective
+liquid: 	type of liquid
+nn: 		noun
+nns: 		plural noun
+rb: 		adverb
+vb: 		verb, base form
+vbd: 		verb, past tense
+vbg: 		verb gerund or present participle (i.e. verb ending in "ing")
+vbn: 		verb, past participle
+vbz: 		verb, 3rd person singular present (i.e. verb ending in "s")
+
+
+— The "storyFunninessGrades" field is a string of 9 numbers, each of which represents a judge's funniness grade for the filled-in Fun Lib story. These grades are in the integer range 0-3, defined as follows:
+	0 - Not Funny		1 - Somewhat Funny
+	2 - Moderately Funny	3 - Funny
+
+— The "wordFunninessGrades" field is a list of N strings, where N is the total number of filled-in words. Each of these strings has 9 numbers, and each of these numbers represents a judge's funniness grade for the filled-in word. These grades take 0-1 values, defined as follows:
+	0 - Not Funny		1 - Funny
+
+The judges' scores and the filled-in words have been aligned in order. For example, for story S, all the 3rd string characters in the set of strings for "wordfunninessGrades" make up the sequence of votes for the filled-in words by judge #3 for S, and the 3rd character in "storyFunninessGrades" is the overall story’s funniness grade given by judge #3.
+
