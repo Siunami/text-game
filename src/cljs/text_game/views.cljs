@@ -63,7 +63,7 @@
 (defn mad-lib-panel [] [:div
                         ; [:div (get-blank-spaces "\"Little Red Riding <Hood::nn/>\" is a/an <beloved::jj/> fairy tale")]
                         [:div
-                         [:p "Nothing"]
+                         [:h3 "Mad Libs"]
                          [:p (utils/get-final-text @text @inputs)]
                          (debug-panel)]])
 
