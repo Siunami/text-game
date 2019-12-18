@@ -4,7 +4,8 @@
    [re-frame.core :as re-frame]
    [text-game.events :as events]
    [text-game.subs :as subs]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [text-game.utils :as utils]))
 
 (def prompts {:animal "name of an animal"
               :animal_plural "plural of an animal"
@@ -19,9 +20,9 @@
               :rb     "adverb"
               :vb     "verb, base form"
               :vbd     "verb, past tense"
-              :vbg     "Verb ending in \"ing\""
+              :vbg     "verb ending in \"ing\""
               :vbn     "verb, past participle"
-              :vbz     "Verb ending in \"s\""})
+              :vbz     "verb ending in \"s\""})
 
 ; (defn get-blank-spaces [str]
 ;   (let [pattern (re-pattern "<.{1,10}::.{1,10}>")
@@ -30,68 +31,43 @@
 ;          (get-blank-spaces (str/replace-first str pattern "Hood"))
 ;          (println str))))
 
-(defn extract-prompt [s]
-  (subs s (inc (.lastIndexOf s ":")) (.lastIndexOf s "/")))
 
-(defn parse-blanks [blanks prompts]
-  (if (first blanks)
-      (parse-blanks
-        (rest blanks)
-        (conj prompts (extract-prompt (first blanks))))
-      prompts))
-
-(defn get-blank-spaces [str]
-  (let [pattern (re-pattern "<.{1,10}::.{1,10}>")]
-      (parse-blanks (re-seq pattern str) ())))
-
-; (do (println str)
-;     (println pattern)
-;     (println (re-matches #"hello.*" "hello, world hefllo as."))
-;   (println (re-find #"<.{1,10}::.{1,10}>" str)))))
-
-; (println (re-matches #"<.{1,10}::.{1,10}>" "<hi::jk>"))
-;
-; (parse-blanks (list <asfd::asd> <ewq::asDf>))
 
 (def text (re-frame/subscribe [::subs/text]))
+(def blanks (re-frame/subscribe [::subs/remaining-blanks]))
+(def inputs (re-frame/subscribe [::subs/inputs]))
 
 (def input-data (reagent/atom {:text ""}))
 
+(defn debug-panel [] [:div
+                      [:h3 "Debugging"]
+                      [:p (get-in @input-data [:text])]
+                      [:p (str "remaining blanks " @blanks)]
+                      [:p (str "inputs " @inputs)]])
 
-;; TODO: On first load, text is nil. subscribe hasn't pushed value to text yet
-(defn setParse []
-  (re-frame/dispatch [::events/set-blanks (get-blank-spaces @text)])
-  (println @text))
 
+(defn input-panel [] [:div
+                      [:h3 "Mad Libs"]
+                      [:p "Fill in the blanks first"]
+                      [:p (str "Enter a(n) "(get-in prompts [(keyword (first @blanks))]))]
+                      [:input {:id "user-input"
+                               :type "text"
+                               :value (get-in @input-data [:text])
+                               :on-change #(swap! input-data assoc :text (-> % .-target .-value))}]
+                      [:button {:on-click (fn [] (do
+                                                   (println (get-in @input-data [:text]))
+                                                   (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
+                                                   (swap! input-data assoc :text "")))} "submit"]
+                      (debug-panel)])
 
-(setParse)
-
+(defn mad-lib-panel [] [:div
+                        ; [:div (get-blank-spaces "\"Little Red Riding <Hood::nn/>\" is a/an <beloved::jj/> fairy tale")]
+                        [:div
+                         [:p "Nothing"]
+                         [:p (utils/get-final-text @text @inputs)]
+                         (debug-panel)]])
 
 (defn main-panel []
-  (let [text (re-frame/subscribe [::subs/text])
-        blanks (re-frame/subscribe [::subs/remaining-blanks])
-        inputs (re-frame/subscribe [::subs/inputs])]
-    (if (first @blanks)
-      [:div "remaining blanks"
-       [:h3 "Prompt: "]
-       [:p (get-in prompts [(keyword (first @blanks))])]
-       [:input {:id "user-input"
-                :type "text"
-                :val (get-in @input-data [:text])
-                :on-change #(swap! input-data assoc :text (-> % .-target .-value))}]
-       [:button {:on-click (fn [] (do
-                                    (println (get-in @input-data [:text]))
-                                    (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
-                                    (swap! input-data assoc :text "")))} "submit"]
-       [:p (str "rest " (rest @blanks))]
-       [:p (get-in @input-data [:text])]
-       [:p (str "all " @blanks)]
-       [:p (str "inputs " @inputs)]]
-      [:div
-       ; [:div (get-blank-spaces "\"Little Red Riding <Hood::nn/>\" is a/an <beloved::jj/> fairy tale")]
-       [:div
-        [:p (str "rest " (rest @blanks))]
-        [:p (get-in @input-data [:text])]
-        [:p (str "all " @blanks)]
-        [:p (str "inputs " @inputs)]
-        [:p (get-in prompts [:jj])]]])))
+  (if (first @blanks)
+    (input-panel)
+    (mad-lib-panel)))
