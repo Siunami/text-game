@@ -39,26 +39,48 @@
 
 (def input-data (reagent/atom {:text ""}))
 
-(defn debug-panel [] [:div
+(defn debug-panel [] [:div.debug
                       [:h3 "Debugging"]
                       [:p (get-in @input-data [:text])]
                       [:p (str "remaining blanks " @blanks)]
                       [:p (str "inputs " @inputs)]])
 
 
-(defn input-panel [] [:div
-                      [:h3 "Mad Libs"]
-                      [:p "Fill in the blanks first"]
-                      [:p (str "Enter a(n) "(get-in prompts [(keyword (first @blanks))]))]
-                      [:input {:id "user-input"
-                               :type "text"
-                               :value (get-in @input-data [:text])
-                               :on-change #(swap! input-data assoc :text (-> % .-target .-value))}]
-                      [:button {:on-click (fn [] (do
-                                                   (println (get-in @input-data [:text]))
-                                                   (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
-                                                   (swap! input-data assoc :text "")))} "submit"]
-                      (debug-panel)])
+; <label for="inp" class="inp">
+;   <input type="text" id="inp" placeholder="&nbsp;">
+;   <span class="label">Label</span>
+;   <span class="border"></span>
+; </label>
+
+(defn custom-input [] [:label {:for "inp" :class "inp"}
+                       [:input {:type "text"
+                                :id "inp"
+                                :placeholder ""
+                                :value (get-in @input-data [:text])
+                                :on-change #(swap! input-data assoc :text (-> % .-target .-value))
+                                :on-key-press (fn [e]
+                                                (println "key press" (.-charCode e))
+                                                (if (= 13 (.-charCode e))
+                                                  (do
+                                                    (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
+                                                    (swap! input-data assoc :text ""))))}]
+                       [:span {:class "label"} (get-in prompts [(keyword (first @blanks))])]
+                       [:span {:class "border"}]])
+
+
+(defn input-panel [] (let [no-input false]
+                       [:div
+                        [:h3 "Mad Libs"]
+                        [:p "Fill in the blanks first"]
+                        (custom-input)
+                        ; [:input {:id "user-input"
+                        ;          :type "text"
+                        ;          :value (get-in @input-data [:text])
+                        ;          :on-change #(swap! input-data assoc :text (-> % .-target .-value))}]
+                        [:button {:on-click (fn [] (do
+                                                     (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
+                                                     (swap! input-data assoc :text "")))} "Enter"]
+                        (debug-panel)]))
 
 (defn mad-lib-panel [] [:div
                         ; [:div (get-blank-spaces "\"Little Red Riding <Hood::nn/>\" is a/an <beloved::jj/> fairy tale")]
@@ -68,6 +90,7 @@
                          (debug-panel)]])
 
 (defn main-panel []
-  (if (first @blanks)
+  [:div.container
+   (if (first @blanks)
     (input-panel)
-    (mad-lib-panel)))
+    (mad-lib-panel))])

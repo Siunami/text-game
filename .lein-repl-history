@@ -53,3 +53,10 @@ quit
 (= () nil)
 (= () ())
 quit
+(type 5)
+(type [:fd sd])
+(type [fd: sd])
+(type [fd: "asd"])
+(type (vec (1 2 3)))
+(type (vector (1 2 3)))
+(type (vec (1 2 3)))

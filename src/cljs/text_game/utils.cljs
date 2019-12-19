@@ -30,12 +30,20 @@
      (rest inputs))
     combined))
 
+(defn color-inputs [inputs]
+  (map (fn [input] [:span.user-input input]) inputs))
+
+(defn text-inputs [inputs]
+  (do
+    (println (type [:sd "Asdf"]))
+    (map (fn [input] [:span.normal-input input]) inputs)))
+
 
 (defn get-final-text [str inputs]
   (let [pattern (re-pattern "<.{1,10}::.{1,10}>")]
-    (clojure.string/join ""
-                         (reverse
-                          (combine-text-inputs
-                            ()
-                            (clojure.string/split str pattern)
-                            inputs)))))
+    [:p
+     (for [element (reverse (combine-text-inputs
+                             ()
+                             (text-inputs (clojure.string/split str pattern))
+                             (color-inputs inputs)))]
+       element)])) 

@@ -1,0 +1,90 @@
+#app {
+	text-align: center;
+}
+
+.debug {
+	text-align:left;
+}
+
+.user-input {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/* .debug {
+	text-align: left;
+} */
+
+/* input {
+	width: 300px;
+	height: 45px;
+	font-size: 25px;
+} */
+
+button {
+	width:45px;
+	height:20px;
+	background: rgba(34,50,84,0.03);
+	margin:10px;
+}
+
+.inp {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 280px;
+}
+.inp .label {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  font-size: 16px;
+  color: #9098a9;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+}
+.inp .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #07f;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+.inp input {
+  -webkit-appearance: none;
+  width: 400px;
+  border: 0;
+  font-family: inherit;
+  padding: 12px 0;
+  height: 48px;
+  font-size: 24px;
+  font-weight: 500;
+  border-bottom: 2px solid #c8ccd4;
+  background: rgba(34,50,84,0.03);
+  border-radius: 0;
+  color: #223254;
+  transition: all 0.15s ease;
+}
+.inp input:hover {
+  background: rgba(34,50,84,0.03);
+}
+.inp input:not(:placeholder-shown) + span {
+  /* color: #5a667f; */
+  transform: translateY(-26px) scale(0.75);
+}
+.inp input:focus {
+  background: rgba(34,50,84,0.03);
+  outline: none;
+}
+.inp input:focus + span {
+  color: #07f;
+  transform: translateY(-45px) scale(0.75);
+}
+/* .inp input:focus + span + .border {
+  transform: scaleX(1);
+} */
