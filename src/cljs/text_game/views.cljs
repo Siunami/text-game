@@ -64,7 +64,7 @@
                         ; [:div (get-blank-spaces "\"Little Red Riding <Hood::nn/>\" is a/an <beloved::jj/> fairy tale")]
                         [:div
                          [:h3 "Mad Libs"]
-                         [:p (utils/get-final-text @text @inputs)]
+                         [:div (utils/get-final-text @text @inputs)]
                          (debug-panel)]])
 
 (defn main-panel []

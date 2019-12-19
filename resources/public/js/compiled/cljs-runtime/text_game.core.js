@@ -7,17 +7,9 @@ goog.require('text_game.subs');
 goog.require('text_game.views');
 goog.require('text_game.config');
 goog.require('text_game.utils');
-text_game.core.text = (function (){var G__42253 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.subs","text","text-game.subs/text",-1237571474)], null);
-return (re_frame.core.subscribe.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.subscribe.cljs$core$IFn$_invoke$arity$1(G__42253) : re_frame.core.subscribe.call(null,G__42253));
+text_game.core.text = (function (){var G__42327 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.subs","text","text-game.subs/text",-1237571474)], null);
+return (re_frame.core.subscribe.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.subscribe.cljs$core$IFn$_invoke$arity$1(G__42327) : re_frame.core.subscribe.call(null,G__42327));
 })();
-text_game.core.setParse = (function text_game$core$setParse(){
-cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([cljs.core.deref(text_game.core.text)], 0));
-
-cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([text_game.utils.get_prompts(cljs.core.deref(text_game.core.text))], 0));
-
-var G__42254 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","set-blanks","text-game.events/set-blanks",-161525541),text_game.utils.get_prompts(cljs.core.deref(text_game.core.text))], null);
-return (re_frame.core.dispatch.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch.cljs$core$IFn$_invoke$arity$1(G__42254) : re_frame.core.dispatch.call(null,G__42254));
-});
 text_game.core.dev_setup = (function text_game$core$dev_setup(){
 if(text_game.config.debug_QMARK_){
 return cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2(["dev mode"], 0));
@@ -31,10 +23,11 @@ text_game.core.mount_root = (function text_game$core$mount_root(){
 return reagent.core.render.cljs$core$IFn$_invoke$arity$2(new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [text_game.views.main_panel], null),document.getElementById("app"));
 });
 text_game.core.init = (function text_game$core$init(){
-var G__42255_42256 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","initialize-db","text-game.events/initialize-db",1311440715)], null);
-(re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1(G__42255_42256) : re_frame.core.dispatch_sync.call(null,G__42255_42256));
+var G__42328_42330 = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","initialize-db","text-game.events/initialize-db",1311440715)], null);
+(re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch_sync.cljs$core$IFn$_invoke$arity$1(G__42328_42330) : re_frame.core.dispatch_sync.call(null,G__42328_42330));
 
-text_game.core.setParse();
+var G__42329_42331 = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("text-game.events","set-blanks","text-game.events/set-blanks",-161525541),text_game.utils.get_prompts(cljs.core.deref(text_game.core.text))], null);
+(re_frame.core.dispatch.cljs$core$IFn$_invoke$arity$1 ? re_frame.core.dispatch.cljs$core$IFn$_invoke$arity$1(G__42329_42331) : re_frame.core.dispatch.call(null,G__42329_42331));
 
 text_game.core.dev_setup();
 

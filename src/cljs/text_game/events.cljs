@@ -12,9 +12,8 @@
 (re-frame/reg-event-db
  ::set-blanks
  (fn [db [_ blanks]]
-   (-> db
-     (assoc :remaining-blanks blanks)
-     (assoc :inputs ()))))
+   (assoc db :remaining-blanks blanks)))
+
 
 (re-frame/reg-event-db
  ::set-inputs

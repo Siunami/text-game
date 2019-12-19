@@ -15,15 +15,7 @@
 ;   (let [fs (nodejs/require "fs")]
 ;     (.readFileSync fs path "utf8")))
 
-
 (def text (re-frame/subscribe [::subs/text]))
-
-;; TODO: On first load, text is nil. subscribe hasn't pushed value to text yet
-(defn setParse []
-  (do
-    (println @text)
-    (println (utils/get-prompts @text))
-    (re-frame/dispatch [::events/set-blanks (utils/get-prompts @text)])))
 
 (defn dev-setup []
   (when config/debug?
@@ -36,6 +28,6 @@
 
 (defn init []
   (re-frame/dispatch-sync [::events/initialize-db])
-  (setParse)
+  (re-frame/dispatch [::events/set-blanks (utils/get-prompts @text)])
   (dev-setup)
   (mount-root))
