@@ -52,6 +52,10 @@
 ;   <span class="border"></span>
 ; </label>
 
+(defn check-filled [input]
+  (if (= input "") "___" input))
+
+
 (defn custom-input [] [:label {:for "inp" :class "inp"}
                        [:input {:type "text"
                                 :id "inp"
@@ -62,7 +66,11 @@
                                                 (println "key press" (.-charCode e))
                                                 (if (= 13 (.-charCode e))
                                                   (do
-                                                    (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
+                                                    (re-frame/dispatch [::events/set-inputs
+                                                                        (conj @inputs
+                                                                              (check-filled
+                                                                               (get-in @input-data [:text])))
+                                                                        (rest @blanks)])
                                                     (swap! input-data assoc :text ""))))}]
                        [:span {:class "label"} (get-in prompts [(keyword (first @blanks))])]
                        [:span {:class "border"}]])
@@ -78,7 +86,11 @@
                         ;          :value (get-in @input-data [:text])
                         ;          :on-change #(swap! input-data assoc :text (-> % .-target .-value))}]
                         [:button {:on-click (fn [] (do
-                                                     (re-frame/dispatch [::events/set-inputs (conj @inputs (get-in @input-data [:text])) (rest @blanks)])
+                                                     (re-frame/dispatch [::events/set-inputs
+                                                                         (conj @inputs
+                                                                               (check-filled
+                                                                                (get-in @input-data [:text]))) 
+                                                                         (rest @blanks)])
                                                      (swap! input-data assoc :text "")))} "Enter"]
                         (debug-panel)]))
 
